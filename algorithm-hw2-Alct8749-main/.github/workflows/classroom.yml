@@ -1,0 +1,110 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Correctness check for function closest1() on tuple1000.bin
+      id: correctness-check-for-function-closest1-on-tuple1000-bin
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Correctness check for function closest1() on tuple1000.bin
+        setup-command: sudo -H pip3 install pytest
+        command: pytest test_closestPair.py -k "test_cp[1-tuple1000.bin]"
+        timeout: 10
+        max-score: 10
+    - name: Correctness check for function closest1() on tuple2500.bin
+      id: correctness-check-for-function-closest1-on-tuple2500-bin
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Correctness check for function closest1() on tuple2500.bin
+        setup-command: ''
+        command: pytest test_closestPair.py -k "test_cp[1-tuple2500.bin]"
+        timeout: 10
+        max-score: 10
+    - name: Correctness check for function closest1() on tuple10000.bin
+      id: correctness-check-for-function-closest1-on-tuple10000-bin
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Correctness check for function closest1() on tuple10000.bin
+        setup-command: ''
+        command: pytest test_closestPair.py -k "test_cp[1-tuple10000.bin]"
+        timeout: 10
+        max-score: 10
+    - name: Correctness check for function closest2() on tuple1000.bin
+      id: correctness-check-for-function-closest2-on-tuple1000-bin
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Correctness check for function closest2() on tuple1000.bin
+        setup-command: ''
+        command: pytest test_closestPair.py -k "test_cp[2-tuple1000.bin]"
+        timeout: 10
+        max-score: 10
+    - name: Correctness check for function closest2() on tuple2500.bin
+      id: correctness-check-for-function-closest2-on-tuple2500-bin
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Correctness check for function closest2() on tuple2500.bin
+        setup-command: ''
+        command: pytest test_closestPair.py -k "test_cp[2-tuple2500.bin]"
+        timeout: 10
+        max-score: 10
+    - name: Correctness check for function closest2() on tuple10000.bin
+      id: correctness-check-for-function-closest2-on-tuple10000-bin
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Correctness check for function closest2() on tuple10000.bin
+        setup-command: ''
+        command: pytest test_closestPair.py -k "test_cp[2-tuple10000.bin]"
+        timeout: 10
+        max-score: 10
+    - name: Correctness check for function closest3() on tuple1000.bin
+      id: correctness-check-for-function-closest3-on-tuple1000-bin
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Correctness check for function closest3() on tuple1000.bin
+        setup-command: ''
+        command: pytest test_closestPair.py -k "test_cp[3-tuple1000.bin]"
+        timeout: 10
+        max-score: 10
+    - name: Correctness check for function closest3() on tuple2500.bin
+      id: correctness-check-for-function-closest3-on-tuple2500-bin
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Correctness check for function closest3() on tuple2500.bin
+        setup-command: ''
+        command: pytest test_closestPair.py -k "test_cp[3-tuple2500.bin]"
+        timeout: 10
+        max-score: 10
+    - name: Correctness check for function closest3() on tuple10000.bin
+      id: correctness-check-for-function-closest3-on-tuple10000-bin
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Correctness check for function closest3() on tuple10000.bin
+        setup-command: ''
+        command: pytest test_closestPair.py -k "test_cp[3-tuple10000.bin]"
+        timeout: 10
+        max-score: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        CORRECTNESS-CHECK-FOR-FUNCTION-CLOSEST1-ON-TUPLE1000-BIN_RESULTS: "${{steps.correctness-check-for-function-closest1-on-tuple1000-bin.outputs.result}}"
+        CORRECTNESS-CHECK-FOR-FUNCTION-CLOSEST1-ON-TUPLE2500-BIN_RESULTS: "${{steps.correctness-check-for-function-closest1-on-tuple2500-bin.outputs.result}}"
+        CORRECTNESS-CHECK-FOR-FUNCTION-CLOSEST1-ON-TUPLE10000-BIN_RESULTS: "${{steps.correctness-check-for-function-closest1-on-tuple10000-bin.outputs.result}}"
+        CORRECTNESS-CHECK-FOR-FUNCTION-CLOSEST2-ON-TUPLE1000-BIN_RESULTS: "${{steps.correctness-check-for-function-closest2-on-tuple1000-bin.outputs.result}}"
+        CORRECTNESS-CHECK-FOR-FUNCTION-CLOSEST2-ON-TUPLE2500-BIN_RESULTS: "${{steps.correctness-check-for-function-closest2-on-tuple2500-bin.outputs.result}}"
+        CORRECTNESS-CHECK-FOR-FUNCTION-CLOSEST2-ON-TUPLE10000-BIN_RESULTS: "${{steps.correctness-check-for-function-closest2-on-tuple10000-bin.outputs.result}}"
+        CORRECTNESS-CHECK-FOR-FUNCTION-CLOSEST3-ON-TUPLE1000-BIN_RESULTS: "${{steps.correctness-check-for-function-closest3-on-tuple1000-bin.outputs.result}}"
+        CORRECTNESS-CHECK-FOR-FUNCTION-CLOSEST3-ON-TUPLE2500-BIN_RESULTS: "${{steps.correctness-check-for-function-closest3-on-tuple2500-bin.outputs.result}}"
+        CORRECTNESS-CHECK-FOR-FUNCTION-CLOSEST3-ON-TUPLE10000-BIN_RESULTS: "${{steps.correctness-check-for-function-closest3-on-tuple10000-bin.outputs.result}}"
+      with:
+        runners: correctness-check-for-function-closest1-on-tuple1000-bin,correctness-check-for-function-closest1-on-tuple2500-bin,correctness-check-for-function-closest1-on-tuple10000-bin,correctness-check-for-function-closest2-on-tuple1000-bin,correctness-check-for-function-closest2-on-tuple2500-bin,correctness-check-for-function-closest2-on-tuple10000-bin,correctness-check-for-function-closest3-on-tuple1000-bin,correctness-check-for-function-closest3-on-tuple2500-bin,correctness-check-for-function-closest3-on-tuple10000-bin
